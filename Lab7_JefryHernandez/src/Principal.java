@@ -33,7 +33,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         listas();
-        System.out.println(habitantes);
+       
     }
 
     /**

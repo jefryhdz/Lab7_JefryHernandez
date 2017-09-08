@@ -108,15 +108,19 @@ public class Lugares extends Thread {
         }
     }
 
-    public void agregarpersonas(ArrayList<Persona>p) {
-        table = new Lugar();
-        DefaultTableModel model = (DefaultTableModel)table.jt_lugar1.getModel();      
+    public void agregarpersonas(ArrayList<Persona> p) {
+
+        int rows = table.jt_lugar1.getRowCount();
+        for (int i = 0; i < rows; i++) {
+            ((DefaultTableModel) table.jt_lugar1.getModel()).removeRow(0);
+        }
+        DefaultTableModel model = (DefaultTableModel) table.jt_lugar1.getModel();
         table.jl_nombre.setText(this.nombre);
         for (Persona persona : p) {
             if (persona.getLugar().equals(this.nombre)) {
-                Object []row={persona.getNombre(),persona.getID(),persona.getEstatura(),persona.getProfesion(),persona.getEdad()};
+                Object[] row = {persona.getNombre(), persona.getID(), persona.getEstatura(), persona.getProfesion(), persona.getEdad()};
                 model.addRow(row);
-            }            
+            }
         }
         table.jt_lugar1.setModel(model);
     }
