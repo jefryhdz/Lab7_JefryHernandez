@@ -1,9 +1,16 @@
+
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.util.ArrayList;
+import java.util.Date;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Jefry Hernandez
@@ -13,8 +20,12 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    static ArrayList<Lugares> lugar = new ArrayList();
+    static ArrayList<Persona> habitantes = new ArrayList();
+
     public Principal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -50,12 +61,12 @@ public class Principal extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        jt_nombrepersona = new javax.swing.JTextField();
+        jf_id = new javax.swing.JTextField();
+        jt_lugar = new javax.swing.JTextField();
+        jt_estatura = new javax.swing.JTextField();
+        jt_profesion = new javax.swing.JTextField();
+        js_edad = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -164,14 +175,19 @@ public class Principal extends javax.swing.JFrame {
         jLabel15.setText("Profesion");
 
         jButton4.setText("Crear");
-
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(14, 0, null, 1));
+        jt_profesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jt_profesionActionPerformed(evt);
+            }
+        });
+
+        js_edad.setModel(new javax.swing.SpinnerNumberModel(14, 0, null, 1));
 
         javax.swing.GroupLayout jd_personaLayout = new javax.swing.GroupLayout(jd_persona.getContentPane());
         jd_persona.getContentPane().setLayout(jd_personaLayout);
@@ -194,12 +210,12 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(75, 75, 75)
                         .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField8)
-                            .addComponent(jTextField9)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jt_nombrepersona, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(jf_id)
+                            .addComponent(jt_lugar)
+                            .addComponent(jt_estatura)
+                            .addComponent(jt_profesion)
+                            .addComponent(js_edad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         jd_personaLayout.setVerticalGroup(
@@ -210,27 +226,27 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jt_nombrepersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jt_lugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(js_edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jt_estatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jd_personaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jt_profesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
@@ -249,6 +265,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jButton2.setText("Persona");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -290,14 +311,70 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void jt_profesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_profesionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_jt_profesionActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
+        String nombre = jt_nombreLugar.getText();
+        String clima = jt_clima.getText();
+        String extension = jt_extension.getText();
+        String cantidad = jt_cantidad.getText();
+        String zona = cb_zona.getSelectedItem().toString();
+        String fecha = dt_fundacion.getDateFormatString();
+        Lugar jf_lugar = new Lugar();
+        Lugares place = new Lugares(nombre, clima, extension, cantidad, jf_lugar, zona, extension);
+        jt_nombreLugar.setText("");
+        jt_clima.setText("");
+        jt_extension.setText("");
+        jt_cantidad.setText("");
+        dt_fundacion.setDate(new Date());
+        jd_lugar.dispose();
+        place.start();
+        lugar.add(place);
+        for (Persona ha : habitantes) {
+            if (ha.getLugar().equals(nombre)) {
+                lugar.get(lugar.size()-1).agregarpersonas(habitantes);
+            }
+        }
+
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String nombre = jt_nombrepersona.getText();
+        String id = jf_id.getText();
+        String profesion = jt_profesion.getText();
+        String lugar1 = jt_lugar.getText();
+        String Estatura = jt_estatura.getText();
+        int edad = (Integer) js_edad.getValue();
+        Persona p = new Persona(nombre, id, lugar1, edad, Estatura, profesion);
+        jt_nombrepersona.setText("");
+        jf_id.setText("");
+        jt_profesion.setText("");
+        jt_lugar.setText("");
+        jt_estatura.setText("");
+        js_edad.setValue(3);
+        habitantes.add(p);
+        if (!lugar.isEmpty()) {
+            for (Lugares lu : lugar) {
+                if (lu.getNombre().equals(lugar1)) {
+                    lu.agregarpersonas(habitantes);
+                }
+
+            }
+        }
+        jd_persona.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        jd_persona.setModal(true);
+        jd_persona.pack();
+        jd_persona.setLocationRelativeTo(this);
+        jd_persona.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,17 +433,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JDialog jd_lugar;
     private javax.swing.JDialog jd_persona;
+    private javax.swing.JTextField jf_id;
+    private javax.swing.JSpinner js_edad;
     private javax.swing.JTextField jt_cantidad;
     private javax.swing.JTextField jt_clima;
+    private javax.swing.JTextField jt_estatura;
     private javax.swing.JTextField jt_extension;
+    private javax.swing.JTextField jt_lugar;
     private javax.swing.JTextField jt_nombreLugar;
+    private javax.swing.JTextField jt_nombrepersona;
+    private javax.swing.JTextField jt_profesion;
     // End of variables declaration//GEN-END:variables
+
 }

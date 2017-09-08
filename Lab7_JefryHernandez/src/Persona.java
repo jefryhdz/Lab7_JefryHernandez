@@ -11,12 +11,12 @@
 public class Persona {
     private String nombre;
     private String ID;
-    private Lugares lugar;
+    private String lugar;
     private Integer Edad;
     private String Estatura;
     private String profesion;
 
-    public Persona(String nombre, String ID, Lugares lugar, Integer Edad, String Estatura, String profesion) {
+    public Persona(String nombre, String ID, String lugar, Integer Edad, String Estatura, String profesion) {
         this.nombre = nombre;
         this.ID = ID;
         this.lugar = lugar;
@@ -41,11 +41,11 @@ public class Persona {
         this.ID = ID;
     }
 
-    public Lugares getLugar() {
+    public String getLugar() {
         return lugar;
     }
 
-    public void setLugar(Lugares lugar) {
+    public void setLugar(String lugar) {
         this.lugar = lugar;
     }
 
