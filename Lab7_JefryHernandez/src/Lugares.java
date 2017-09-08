@@ -110,7 +110,31 @@ public class Lugares extends Thread {
 
     public void agregarpersonas(ArrayList<Persona>p) {
         DefaultTableModel model = (DefaultTableModel)table.jt_lugar1.getModel();
-        table.jt_lugar1.removeAll();
+      
+        table.jt_lugar1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "ID", "Estatura", "Profesion", "Edad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.jl_nombre.setText(this.nombre);
         for (Persona persona : p) {
             if (persona.getLugar().equals(this.nombre)) {
                 Object []row={persona.getNombre(),persona.getID(),persona.getEstatura(),persona.getProfesion(),persona.getEdad()};

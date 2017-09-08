@@ -1,5 +1,11 @@
 
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
@@ -26,6 +32,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        listas();
+        System.out.println(habitantes);
     }
 
     /**
@@ -335,7 +343,7 @@ public class Principal extends javax.swing.JFrame {
         lugar.add(place);
         for (Persona ha : habitantes) {
             if (ha.getLugar().equals(nombre)) {
-                lugar.get(lugar.size()-1).agregarpersonas(habitantes);
+                lugar.get(lugar.size() - 1).agregarpersonas(habitantes);
             }
         }
 
@@ -357,6 +365,7 @@ public class Principal extends javax.swing.JFrame {
         jt_estatura.setText("");
         js_edad.setValue(3);
         habitantes.add(p);
+        archivo(p);
         if (!lugar.isEmpty()) {
             for (Lugares lu : lugar) {
                 if (lu.getNombre().equals(lugar1)) {
@@ -447,4 +456,45 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jt_profesion;
     // End of variables declaration//GEN-END:variables
 
+    public void archivo(Persona p) {
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        try {
+            fw = new FileOutputStream("./usuario.fac", false);
+            bw = new ObjectOutputStream(fw);
+            for (Persona us : habitantes) {
+                bw.writeObject(us);
+            }
+            bw.flush();
+            try {
+                bw.close();
+                fw.close();
+            } catch (Exception e) {
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    public void listas() {
+        File f = new File("./usuario.fac");
+        try {
+            Persona temp;
+
+            FileInputStream entrada = new FileInputStream(f);
+            ObjectInputStream objeto = new ObjectInputStream(entrada);
+            try {
+                while (true) {
+                    habitantes.add((Persona)objeto.readObject());
+                }
+            } catch (EOFException e) {
+            }
+            objeto.close();
+            entrada.close();
+
+        } catch (Exception e) {
+
+        }
+
+    }
 }
